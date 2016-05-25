@@ -1,0 +1,42 @@
+<project name="HashTest" basedir="." default="jar">
+	<property name="src.dir"	value="src"/>
+	<property name="build.dir"	value="build"/>
+	<property name="classes.dir"	value="${build.dir}/classes"/>
+	<property name="jar.dir"	value="${build.dir}/jar"/>
+	<property name="HashTest"	value="com.HashTest.HashTest"/>
+
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+	</target>
+
+	<target name="compile">
+		<mkdir dir="${classes.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${jar.dir}"/>
+		<jar destfile="${jar.dir}/HashTest.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${HashTest}"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="run2" depends="jar">
+		<java jar="${jar.dir}/HashTest.jar" fork="true">
+			<arg value="${data}"/>
+			<arg value="${loadfactor}"/>
+		</java>
+	</target>
+
+	<target name="run3" depends="jar">
+		<java jar="${jar.dir}/HashTest.jar" fork="true">
+			<arg value="${data}"/>
+			<arg value="${loadfactor}"/>
+			<arg value="${debug}"/>
+		</java>
+	</target>
+
+	<target name="clean-build" depends="clean,jar"/>
+</project>
