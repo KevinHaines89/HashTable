@@ -1,0 +1,45 @@
+************************************
+* Project: Hashing
+* Name:    Kevin Haines
+************************************
+
+OVERVIEW:
+
+This program runs tests on a Hashtable using either linear or double hashing 
+as specified by a command line argument. The load factor of the hashtable is
+also specified by a command line argument.  The maximum size of the hash table
+is determined as the larger prime of the first twin prime found ascending from
+95,500(this number was chosen by the instructor for the assignment.) The
+program then prints to the screen various information to the screen about the
+hashtable determined by the debug level.
+
+BUILDING AND RUNNING:
+
+To compile the program simply enter "ant" from the HashTable directory.  There
+are two options to run the program, with 2 command line arguments or with 3.
+To run with 2 arguments enter "ant run2 -Ddata=<data> -Dloadfactor=<loadfactor>"
+and to run with 3 arguments enter "ant run3 -Ddata=<data> -Dloadfactor=<loadfactor>
+ -Ddebug=<debug>".  "ant clean" will remove all compiled files.
+
+data = 1 for Math.Random(), 2 for System.nanoTime(), and 3 for the word-list file.
+(the word-list file is quote large, over 3 million lines.)
+
+loadfactor = a number between 0 and 1.  This determines how full the table will be.
+
+debeug = 0 to print summary, 1 to print out table at the end, and 2 to print the 
+number of probes for each insert.
+
+
+PROGRAM DESIGN:
+
+It is important to choose a prime number for the size of the hashtable and a 
+constant for the hash function that is coprime to the size of the table.  This
+reduces the number of collisions.  
+
+At first I used System.currentTimeMillis()(this was the original assignments 
+instruction) but I found that the hashing was coming up with incredible amounts 
+of duplicates and was taking a long time to run.  I believe the value returned 
+by System.currentTimeMillis() was different only roughly once every millisecond
+(its not exact) which meant that only about 1000 entries were possible every 
+second which made it run very slow and had many duplicates.  Using System.nanoTime() 
+fixed this problem.
